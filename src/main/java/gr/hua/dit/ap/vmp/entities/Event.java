@@ -1,6 +1,10 @@
 package gr.hua.dit.ap.vmp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -14,6 +18,8 @@ public class Event {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Title is required.")
+    @Size(max = 255, message = "Title must be at most 255 characters.")
     @Column(nullable = false)
     private String title;
 
@@ -24,12 +30,14 @@ public class Event {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
 
+    @Positive(message = "Duration must be a positive number of hours.")
     @Column
     private Integer duration; // σε ώρες
 
     @Column
     private String location;
 
+    @Min(value = 1, message = "Max participants must be at least 1.")
     @Column(name = "max_participants")
     private Integer maxParticipants;
 

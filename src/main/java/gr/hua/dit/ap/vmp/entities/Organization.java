@@ -1,6 +1,7 @@
 package gr.hua.dit.ap.vmp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class Organization {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Organization name is required.")
     @Column(nullable = false, unique = true)
     private String name;
 

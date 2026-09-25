@@ -1,6 +1,10 @@
 package gr.hua.dit.ap.vmp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,9 +16,13 @@ public class Review {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "Rating is required.")
+    @Min(value = 1, message = "Rating must be between 1 and 5.")
+    @Max(value = 5, message = "Rating must be between 1 and 5.")
     @Column(nullable = false)
     private Integer rating;
 
+    @Size(max = 255, message = "Comment must be at most 255 characters.")
     @Column
     private String comment;
 

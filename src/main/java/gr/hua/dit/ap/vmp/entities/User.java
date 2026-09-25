@@ -1,6 +1,8 @@
 package gr.hua.dit.ap.vmp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,6 +15,8 @@ public abstract class User {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Email is required.")
+    @Email(message = "Email must be a valid email address.")
     @Column(unique = true, nullable = false)
     private String email;
 
