@@ -2,6 +2,8 @@ package gr.hua.dit.ap.vmp.controllers;
 
 import gr.hua.dit.ap.vmp.entities.Notification;
 import gr.hua.dit.ap.vmp.service.NotificationService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,8 @@ public class NotificationController {
     public String listNotifications(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,
                                     Model model) {
-        Page<Notification> notificationPage = notificationService.getNotificationsPaginated(page, size);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Page<Notification> notificationPage = notificationService.getNotificationsPaginated(auth.getName(), page, size);
         model.addAttribute("notificationPage", notificationPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", notificationPage.getTotalPages());

@@ -21,7 +21,9 @@ public class SecurityConfig {
                         .requestMatchers("/volunteer/register").permitAll()
                         .requestMatchers("/organization/register").permitAll()
                         .requestMatchers("/organization/user/register").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/img/**", "/favicon.ico").permitAll()
+                        // Σελίδες σφαλμάτων (404, 403, 500 κλπ.)
+                        .requestMatchers("/error", "/error/**").permitAll()
 
                         // Μόνο για ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN")

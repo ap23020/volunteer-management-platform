@@ -47,9 +47,9 @@ public class NotificationService {
     }
 
     @Transactional
-    public Page<Notification> getNotificationsPaginated(int page, int size) {
+    public Page<Notification> getNotificationsPaginated(String recipientEmail, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        return notificationRepository.findAll(pageable);
+        return notificationRepository.findByRecipientEmail(recipientEmail, pageable);
     }
 }
 
