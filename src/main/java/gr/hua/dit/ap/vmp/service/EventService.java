@@ -100,7 +100,7 @@ public class EventService {
         }
     }
 
-    // FIX: Προσθήκη ελέγχου δικαιώματος + state check
+    // Προσθήκη ελέγχου δικαιώματος + state check
     @Transactional
     public void updateEvent(Long id, Event updatedEvent) {
         Event existing = eventRepository.findById(id).orElse(null);
@@ -108,12 +108,12 @@ public class EventService {
             throw new IllegalArgumentException("Event not found.");
         }
 
-        // FIX: Έλεγχος δικαιώματος σε επίπεδο service (defense in depth)
+        // Έλεγχος δικαιώματος σε επίπεδο service (defense in depth)
         if (!canManageEvent(existing)) {
             throw new AccessDeniedException("You cannot edit this event.");
         }
 
-        // FIX: Έλεγχος αν επιτρέπεται η επεξεργασία με βάση την κατάσταση
+        // Έλεγχος αν επιτρέπεται η επεξεργασία με βάση την κατάσταση
         if (existing.getStatus() == EventStatus.APPROVED
                 || existing.getStatus() == EventStatus.CANCELLED
                 || existing.getStatus() == EventStatus.COMPLETED) {
@@ -151,7 +151,7 @@ public class EventService {
             throw new IllegalStateException("Only approved events can be cancelled.");
         }
 
-        // FIX: Χρήση της κοινής βοηθητικής μεθόδου
+        // Χρήση της κοινής βοηθητικής μεθόδου
         if (!canManageEvent(event)) {
             throw new AccessDeniedException("You cannot cancel this event.");
         }
@@ -230,9 +230,9 @@ public class EventService {
         return eventRepository.findByStatus(status);
     }
 
-    // ============================================================
-    // FIX: Νέες μέθοδοι φιλτραρίσματος ανά ρόλο
-    // ============================================================
+
+    // Νέες μέθοδοι φιλτραρίσματος ανά ρόλο
+
 
     /**
      * Φιλτράρισμα για ADMIN — βλέπει τα πάντα.
@@ -302,7 +302,7 @@ public class EventService {
         return applySearchAndCategory(base, keyword, category);
     }
 
-    // FIX: Διατηρούμε την παλιά για backward compatibility (αν χρησιμοποιείται αλλού)
+    // Διατηρούμε την παλιά για backward compatibility (αν χρησιμοποιείται αλλού)
     @Deprecated
     @Transactional
     public List<Event> getFilteredEvents(Long organizationId, EventStatus status) {
@@ -358,7 +358,7 @@ public class EventService {
         }
     }
 
-    // FIX: Βοηθητική μέθοδος για έλεγχο δικαιωμάτων (χρησιμοποιείται από updateEvent & cancelEvent)
+    // Βοηθητική μέθοδος για έλεγχο δικαιωμάτων (χρησιμοποιείται από updateEvent & cancelEvent)
     private boolean canManageEvent(Event event) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) return false;

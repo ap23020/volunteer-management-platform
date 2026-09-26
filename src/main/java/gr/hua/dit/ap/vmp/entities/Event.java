@@ -82,7 +82,7 @@ public class Event {
         this.status = EventStatus.PENDING_APPROVAL;
     }
 
-    // FIX: Αυτόματη διαχείριση timestamps κατά τη δημιουργία/ενημέρωση
+    // Αυτόματη διαχείριση timestamps κατά τη δημιουργία/ενημέρωση
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

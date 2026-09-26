@@ -39,7 +39,7 @@ public class ParticipationController {
     }
 
     // Εμφάνιση φόρμας δήλωσης συμμετοχής
-    // FIX: Μόνο VOLUNTEER ή ADMIN μπορούν να φτάσουν εδώ (βλ. SecurityConfig)
+    // Μόνο VOLUNTEER ή ADMIN μπορούν να φτάσουν εδώ (βλ. SecurityConfig)
     @GetMapping("/new")
     public String showParticipationForm(@RequestParam Long eventId, Model model,
                                         RedirectAttributes redirectAttributes) {
@@ -78,7 +78,7 @@ public class ParticipationController {
     }
 
     // Υποβολή δήλωσης συμμετοχής
-    // FIX: Για VOLUNTEER, το volunteerId προέρχεται ΠΑΝΤΑ από το session (αγνοείται τυχόν input)
+    // Για VOLUNTEER, το volunteerId προέρχεται ΠΑΝΤΑ από το session (αγνοείται τυχόν input)
     @PostMapping("/new")
     public String submitParticipation(@RequestParam Long eventId,
                                       @RequestParam(required = false) Long volunteerId,
@@ -283,7 +283,7 @@ public class ParticipationController {
     }
 
     // Λίστα συμμετοχών ανά εθελοντή (για τον εθελοντή)
-    // FIX: Έλεγχος ότι ο εθελοντής βλέπει ΜΟΝΟ τις δικές του συμμετοχές
+    // Έλεγχος ότι ο εθελοντής βλέπει ΜΟΝΟ τις δικές του συμμετοχές
     @GetMapping("/volunteer/{volunteerId}")
     public String listParticipationsByVolunteer(@PathVariable Long volunteerId, Model model,
                                                 RedirectAttributes redirectAttributes) {
@@ -310,7 +310,7 @@ public class ParticipationController {
     }
 
     // Ακύρωση συμμετοχής
-    // FIX: Έλεγχος ότι ο συνδεδεμένος χρήστης είναι ο ιδιοκτήτης (ή admin)
+    // Έλεγχος ότι ο συνδεδεμένος χρήστης είναι ο ιδιοκτήτης (ή admin)
     @PostMapping("/cancel/{id}")
     public String cancelParticipation(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Participation participation = participationService.getParticipation(id);
@@ -342,7 +342,7 @@ public class ParticipationController {
     }
 
     // Εξαγωγή CSV
-    // FIX: Μόνο ORGANIZATION ή ADMIN (ο volunteer δεν έχει πρόσβαση)
+    // Μόνο ORGANIZATION ή ADMIN (ο volunteer δεν έχει πρόσβαση)
     @GetMapping("/export")
     @PreAuthorize("hasAnyRole('ORGANIZATION', 'ADMIN')")
     public ResponseEntity<byte[]> exportParticipations(@RequestParam(required = false) Long eventId,
