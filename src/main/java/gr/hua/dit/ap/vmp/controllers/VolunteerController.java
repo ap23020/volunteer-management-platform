@@ -29,7 +29,7 @@ public class VolunteerController {
     public String showVolunteerRegistrationForm(Model model) {
         model.addAttribute("volunteer", new Volunteer());
         model.addAttribute("activePage", "register");
-        return "volunteer/register-volunteer";   // <-- αν το αρχείο σου λέγεται έτσι
+        return "volunteer/register-volunteer";   //
     }
 
     // Υποβολή φόρμας εγγραφής
@@ -43,7 +43,7 @@ public class VolunteerController {
             model.addAttribute("errorMessage", "A user with this email already exists.");
             model.addAttribute("volunteer", volunteer);
             model.addAttribute("activePage", "register");
-            return "volunteer/register-volunteer";   // <-- ίδιο εδώ
+            return "volunteer/register-volunteer";   //
         }
 
         volunteer.setRole(Role.VOLUNTEER);
@@ -77,11 +77,11 @@ public class VolunteerController {
         return "redirect:/volunteer/list";
     }
 
-    // Προβολή συμμετοχών εθελοντή (αν τη χρειάζεσαι)
+    // Προβολή συμμετοχών εθελοντή
     @GetMapping("/{id}/participations")
     public String viewParticipations(@PathVariable Long id, Model model) {
         model.addAttribute("volunteer", volunteerService.getVolunteer(id));
-        // Εδώ μπορείς να φορτώσεις τις συμμετοχές αν έχεις service
+        // Φορτώνω τις συμμετοχές
         // model.addAttribute("participations", participationService.getParticipationsByVolunteer(id));
         model.addAttribute("activePage", "volunteers");
         return "volunteer/volunteer-participations";
