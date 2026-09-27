@@ -21,14 +21,14 @@ public class VolunteerService {
     private final ParticipationRepository participationRepository;
     private final NotificationRepository notificationRepository;
     private final ReviewRepository reviewRepository;
-    private final BCryptPasswordEncoder passwordEncoder;   // <-- προσθήκη
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public VolunteerService(VolunteerRepository volunteerRepository,
                             NotificationService notificationService,
                             ParticipationRepository participationRepository,
                             NotificationRepository notificationRepository,
                             ReviewRepository reviewRepository,
-                            BCryptPasswordEncoder passwordEncoder) {   // <-- προσθήκη
+                            BCryptPasswordEncoder passwordEncoder) {
         this.volunteerRepository = volunteerRepository;
         this.notificationService = notificationService;
         this.participationRepository = participationRepository;
